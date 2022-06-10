@@ -1,0 +1,206 @@
+---
+title: "Introduction to SRTsim"
+author: 
+  - name: Jiaqiang Zhu
+    affiliation:
+    - &umich University of Michigan, Department of Biostatistics
+    email: Jiaqiang@umich.edu
+date: "`r doc_date()`"
+package: "`r pkg_ver('SRTsim')`"
+output: 
+  BiocStyle::html_document
+vignette: >
+  %\VignetteIndexEntry{Introduction to SRTsim}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+    collapse = TRUE,
+    comment = "#>"
+)
+```
+
+```{r vignetteSetup, echo=FALSE, message=FALSE, warning = FALSE}
+## For links
+library("BiocStyle")
+
+## Track time spent on making the vignette
+startTime <- Sys.time()
+
+## Bib setup
+library("RefManageR")
+
+## Write bibliography information
+bib <- c(
+    R = citation(),
+    BiocFileCache = citation("BiocFileCache")[1],
+    BiocStyle = citation("BiocStyle")[1],
+    knitr = citation("knitr")[3],
+    Matrix = citation("Matrix")[1],
+    RefManageR = citation("RefManageR")[1],
+    rmarkdown = citation("rmarkdown")[1],
+    S4Vectors = citation("S4Vectors")[1],
+    sessioninfo = citation("sessioninfo")[1]
+)
+```
+# Welcome
+
+Welcome to the `SRTsim` project! It is composed of:
+
+* a [shiny](https://shiny.rstudio.com/) web application that we are hosting at [https://jiaqiangzhu.shinyapps.io/srtsim](https://jiaqiangzhu.shinyapps.io/srtsim) that can handle a limited set of concurrent users,
+* a R package at CRAN that lets you generate the spatially resolved transcriptomic (SRT) data and run a local version of our web application.
+
+The web application allows you to design spatial pattern and generate SRT data with patterns of interest.
+
+
+# Install `SRTsim`
+
+`R` is an open-source statistical environment which can be easily modified to enhance its functionality via packages. `r CRANpkg('SRTsim')` is a `R` package available via CRAN. `R` can be installed on any operating system from [CRAN](https://cran.r-project.org/) after which you can install `r CRANpkg('SRTsim')` by using the following commands in your `R` session:
+
+```{r 'install', eval = FALSE}
+ install.packages("SRTsim")
+```
+
+# Run Reference-Based Simulation 
+
+To get started, please load the `r CRANpkg('SRTsim')` package.
+
+```{r setup, message = FALSE, warning = FALSE}
+library("SRTsim")
+```
+
+Once you have installed the package, we can perform reference-based Tissue-wise simulation with the example data.
+
+```{r 'reference-based tissue-wise simulation'}
+## explore example SRT data 
+str(exampleLIBD)
+
+example_count   <- exampleLIBD$count
+example_loc     <- exampleLIBD$info[,c("imagecol","imagerow","layer")]
+colnames(example_loc) <- c("x","y","label")
+
+## create a SRT object
+simSRT  <- createSRT(count_in=example_count,loc_in =example_loc)
+
+
+## Set a seed for reproducible simulation
+set.seed(1)
+
+## Estimate model parameters for data generation
+simSRT1 <- srtsim_fit(simSRT,sim_schem="tissue")
+
+## Generate synthetic data with estimated parameters
+simSRT1 <- srtsim_count(simSRT1)
+
+## Explore the synthetic data
+simCounts(simSRT1)[1:5,1:5]
+simcolData(simSRT1)
+```
+
+We can perform reference-based Domain-specific simulation with the example data.
+
+```{r 'reference-based domain-specific simulation'}
+
+## Set a seed for reproducible simulation
+set.seed(1)
+
+## Estimate model parameters for data generation
+simSRT2 <- srtsim_fit(simSRT,sim_scheme='domain')
+
+## Generate synthetic data with estimated parameters
+simSRT2 <- srtsim_count(simSRT2)
+
+## Explore the synthetic data
+simCounts(simSRT2)[1:5,1:5]
+```
+
+# Comparison Between Reference Data and Synthetic Data
+## Summarized Metrics
+After data generation, we can compare metrics of reference data and synthetic data
+
+```{r 'tissue simulation metrics comparison'}
+
+## Compute metrics 
+simSRT1   <- compareSRT(simSRT1)
+
+## Visualize Metrics
+visualize_metrics(simSRT1)
+```
+
+## Expression Patterns For Genes of Interest
+
+```{r 'pattern comparison'}
+visualize_gene(simsrt=simSRT1,plotgn = "ENSG00000183036",rev_y=TRUE)
+visualize_gene(simsrt=simSRT2,plotgn = "ENSG00000168314",rev_y=TRUE)
+```
+
+This work was done by Jiaqiang Zhu, Lulu Shang and Xiang Zhou.
+
+# Reproducibility
+
+The `r CRANpkg('SRTsim')` package was made possible thanks to:
+
+* R `r Citep(bib[['R']])`
+* `r Biocpkg('AnnotationHub')` `r Citep(bib[['AnnotationHub']])`
+* `r Biocpkg('BiocFileCache')` `r Citep(bib[['BiocFileCache']])`
+* `r Biocpkg('BiocStyle')` `r Citep(bib[['BiocStyle']])`
+* `r Biocpkg('GenomicRanges')` `r Citep(bib[['GenomicRanges']])`
+* `r CRANpkg('knitr')` `r Citep(bib[['knitr']])`
+* `r CRANpkg('Matrix')` `r Citep(bib[['Matrix']])`
+* `r CRANpkg("RefManageR")` `r Citep(bib[["RefManageR"]])`
+* `r CRANpkg('rmarkdown')` `r Citep(bib[['rmarkdown']])`
+* `r Biocpkg('rtracklayer')` `r Citep(bib[['rtracklayer']])`
+* `r Biocpkg('S4Vectors')` `r Citep(bib[['S4Vectors']])`
+* `r CRANpkg('sessioninfo')` `r Citep(bib[['sessioninfo']])`
+
+
+    
+Code for creating the vignette
+
+```{r createVignette, eval=FALSE}
+## Create the vignette
+library("rmarkdown")
+system.time(render("SRTsim.Rmd"))
+
+## Extract the R code
+library("knitr")
+knit("SRTsim.Rmd", tangle = TRUE)
+```
+
+
+Date the vignette was generated.
+
+```{r reproduce1, echo=FALSE}
+## Date the vignette was generated
+Sys.time()
+```
+
+Wallclock time spent generating the vignette.
+
+```{r reproduce2, echo=FALSE}
+## Processing time in seconds
+totalTime <- diff(c(startTime, Sys.time()))
+round(totalTime, digits = 3)
+```
+
+`R` session information.
+
+```{r reproduce3, echo=FALSE}
+## Session info
+library("sessioninfo")
+options(width = 120)
+session_info()
+```
+
+# Bibliography
+
+This vignette was generated using `r Biocpkg('BiocStyle')` `r Citep(bib[['BiocStyle']])`, `r CRANpkg('knitr')` `r Citep(bib[['knitr']])` and `r CRANpkg('rmarkdown')` `r Citep(bib[['rmarkdown']])` running behind the scenes.
+
+Citations made with `r CRANpkg('RefManageR')` `r Citep(bib[['RefManageR']])`.
+
+```{r vignetteBiblio, results = 'asis', echo = FALSE, warning = FALSE, message = FALSE}
+## Print bibliography
+PrintBibliography(bib, .opts = list(hyperlink = "to.doc", style = "html"))
+```
