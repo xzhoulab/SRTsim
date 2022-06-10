@@ -4,19 +4,16 @@ title: Reference-Based Simulation Example
 permalink: /02_Reference_Based_Example/
 ---
 
-## Get Started 
+#### Get Started 
 
 To get started, please load the `SRTsim` package.
 
 ```R
-    library('SRTsim')
+library('SRTsim')
 ```
+Once you have installed the package, we can perform reference-based simulation with the example data.
 
-## Tissue-wise simulation
-
-Once you have installed the package, we can perform reference-based Tissue-wise simulation with the example data.
-
-### Explore example SRT data 
+#### Explore example SRT data 
 ```R
 str(exampleLIBD)
 # List of 2
@@ -41,7 +38,7 @@ example_loc     <- exampleLIBD$info[,c("imagecol","imagerow","layer")]
 colnames(example_loc) <- c("x","y","label")
 ```
 
-### Create a SRT object
+#### Create a SRT object
 ```R   
 simSRT  <- createSRT(count_in=example_count,loc_in =example_loc)
 simSRT
@@ -55,7 +52,7 @@ simSRT
 # refcolData names(3): x y label
 ```
 
-### Model fitting and data simulation
+#### Tissue-wise simulation: Model fitting and data simulation
 ```R 
 ## Set a seed for reproducible simulation
 set.seed(1)
@@ -65,32 +62,45 @@ simSRT1 <- srtsim_fit(simSRT,sim_schem="tissue")
 
 ## Generate synthetic data with estimated parameters
 simSRT1 <- srtsim_count(simSRT1)
-
-## Explore the synthetic data
-simCounts(simSRT1)[1:3,1:3]
-
-3 x 3 sparse Matrix of class "dgCMatrix"
-                AAACAAGTATCTCCCA-1 AAACAATCTACTAGCA-1 AAACACCAATAACTGC-1
-ENSG00000175130                  .                  .                 10
-ENSG00000159176                  1                  3                  5
-ENSG00000168314                  1                  .                  6
-
-
-simcolData(simSRT1)
-
-DataFrame with 3611 rows and 3 columns
-                           x         y       label
-                   <numeric> <numeric> <character>
-AAACAAGTATCTCCCA-1   440.639   381.098      Layer3
-AAACAATCTACTAGCA-1   259.631   126.328      Layer1
-AAACACCAATAACTGC-1   183.078   427.768          WM
-AAACAGAGCGACTCCT-1   417.237   186.814      Layer3
-AAACAGCTTTCAGAAG-1   152.700   341.269      Layer5
-...                      ...       ...         ...
-TTGTTTCACATCCAGG-1   254.410   422.862          WM
-TTGTTTCATTAGTCTA-1   217.147   433.393          WM
-TTGTTTCCATACAACT-1   208.416   352.430      Layer6
-TTGTTTGTATTACACG-1   250.720   503.735          WM
-TTGTTTGTGTAAATTC-1   284.293   148.110      Layer2
 ```
 
+#### Domain-Specific simulation: Model fitting and data simulation
+```R 
+## Set a seed for reproducible simulation
+set.seed(1)
+## Estimate model parameters for data generation
+simSRT2 <- srtsim_fit(simSRT,sim_schem="domain")
+## Generate synthetic data with estimated parameters
+simSRT2 <- srtsim_count(simSRT2)
+```
+
+#### Explore the synthetic data
+```R 
+simCounts(simSRT1)[1:3,1:3]
+# 3 x 3 sparse Matrix of class "dgCMatrix"
+#                 AAACAAGTATCTCCCA-1 AAACAATCTACTAGCA-1 AAACACCAATAACTGC-1
+# ENSG00000175130                  .                  .                 10
+# ENSG00000159176                  1                  3                  5
+# ENSG00000168314                  1                  .                  6
+```
+
+#### Comparison Between Reference Data and Synthetic Data
+After data generation, we can compare metrics of reference data and synthetic data
+```R 
+## Compute metrics 
+simSRT1   <- compareSRT(simSRT1)
+## Visualize Metrics
+visualize_metrics(simSRT1)
+```
+![summarized metrics](metrics_violin.png)
+
+We can compare the expression patterns for genes of interest
+```R 
+visualize_gene(simsrt=simSRT1,plotgn = "ENSG00000183036",rev_y=TRUE)
+```
+![pattern gene 1](pattern_gene1.png)
+
+```R 
+visualize_gene(simsrt=simSRT2,plotgn = "ENSG00000168314",rev_y=TRUE)
+```
+![pattern gene 2](pattern_gene2.png)
