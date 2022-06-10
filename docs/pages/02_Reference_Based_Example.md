@@ -11,7 +11,7 @@ To get started, please load the `SRTsim` package.
 ```R
 library('SRTsim')
 ```
-Once you have installed the package, we can perform reference-based simulation with the example data.
+Once you have loaded the package, we can perform reference-based simulation with the example data.
 
 #### Explore example SRT data 
 ```R
