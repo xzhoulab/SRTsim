@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Reference-Based Simulation Example
+title: Reference-Based Example
 permalink: /02_Reference_Based_Example/
 ---
 
