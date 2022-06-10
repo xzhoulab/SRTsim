@@ -1,8 +1,8 @@
 # following https://github.com/jekyll/minima
-title: SPARK
-author: Shiquan Sun, Jiaqiang Zhu and Xiang Zhou
-email: shiquans@umich.edu jiaqiang@umich.edu xzhousph@umich.edu
-description: Spatial PAttern Recognition via Kernels
+title: SRTsim
+author: Jiaqiang Zhu, Lulu Shang, and Xiang Zhou
+email: jiaqiang@umich.edu xzhousph@umich.edu
+description: An interactive simulator for spatially resolved transcriptomics
 
 # Minima date format
 # refer to http://shopify.github.io/liquid/filters/date/ if you want to customize this

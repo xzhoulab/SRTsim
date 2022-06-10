@@ -19,8 +19,6 @@ variant: markdown_github
 ---
 
 
-**SRTsim** is an independent, reproducible, and flexible SRT simulation framework that can be used to facilitate the development of SRT analytical methods for a wide variety of SRT-specific analyses. It utilizes spatial localization information to simulate SRT expression count data in a reproducible and scalable fashion. Two major simulation schemes are implemented in SRTsim: reference-based and reference-free. 
+**SRTsim** is an independent, reproducible, and flexible SRT simulation framework that can be used to facilitate the development of SRT analytical methods for a wide variety of SRT-specific analyses. It utilizes spatial localization information to simulate SRT expression count data in a reproducible and scalable fashion. Two major simulation schemes are implemented in SRTsim: [reference-based](https://xzhoulab.github.io/SRTsim/02_Reference_Based_Example/) and reference-free. 
 
 ![SRTsim\_pipeline](Figure1_long_noblock_update.png)
-
-**Reference-Based Simulation Example **:[here](https://xzhoulab.github.io/SPARK/02_SPARK_Example/).
