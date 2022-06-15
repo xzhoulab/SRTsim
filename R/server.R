@@ -46,14 +46,19 @@ server <- function(input, output, session){
         }
 
         gg_scatter <- ggplot(data=g1,aes(x=x, y=y,color=group)) + 
-                        geom_point(size=input$ptsize) + 
-                        xlab("Coordinate 1") + 
-                        ylab("Coordinate 2")+ 
-                        theme(legend.title=element_blank(),
-                                text = element_text(size=input$textsize))+ 
-                        coord_fixed()
+            geom_point(size=input$ptsize) + 
+            xlab("Coordinate 1") + 
+            ylab("Coordinate 2")+ 
+            theme(legend.title=element_blank(),
+                    text = element_text(size=input$textsize))+ 
+            coord_fixed()
+            
+        if(input$shape %in% c("Square","Circle")){
+            plotly::ggplotly(gg_scatter, height = 400, width= 1.1*400*(diff(range(g1$x))/diff(range(g1$y)))) %>% plotly::layout(dragmode = 'select',legend = list(title=list(text='<b> Group </b>',side="top"),orientation = "v", x=1.05))
+        }else{
+            plotly::ggplotly(gg_scatter) %>% plotly::layout(dragmode = 'select',legend = list(title=list(text='<b> Group </b>',side="top"),orientation = "v", x=1.05))
+        }
 
-        plotly::ggplotly(gg_scatter, height = 500, width= 1.1*500*(diff(range(g1$x))/diff(range(g1$y)))) %>% plotly::layout(dragmode = 'select',legend = list(title=list(text='<b> Group </b>',side="top"),orientation = "v", x=1.05))
     })
 
     ## initial table
