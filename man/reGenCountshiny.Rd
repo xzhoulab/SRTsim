@@ -4,14 +4,30 @@
 \alias{reGenCountshiny}
 \title{ReSimulate Count Data with Parameters Specification from Shiny}
 \usage{
-reGenCountshiny(shinyOutput)
+reGenCountshiny(shinyOutput, NewSeed = NULL)
 }
 \arguments{
 \item{shinyOutput}{A list of Shiny Output. Including a simCount, simInfo,simcountParam,simLocParam}
+
+\item{NewSeed}{A new seed for data generation. Useful when multiple replicates are needed.}
 }
 \value{
 Returns a Count DataFrame
 }
 \description{
 ReSimulate Count Data with Parameters Specification from Shiny
+}
+\examples{
+
+## Re-generate Count Data based on ShinyOutput Parameters, should be same as simCount in ShinyOutput
+cMat <- reGenCountshiny(toyShiny)
+
+## Generate Count Data with A New Seed based on ShinyOutput Parameters 
+cMat2 <- reGenCountshiny(toyShiny,NewSeed=2)
+
+## Comparison across the output
+toyShiny$simCount[1:3,1:3]
+cMat[1:3,1:3]
+cMat2[1:3,1:3]
+
 }

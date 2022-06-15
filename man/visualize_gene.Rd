@@ -35,3 +35,20 @@ Returns two expression plots for the gene of interest
 \description{
 Visualize expression pattern for the gene of interest in reference data and synthetic data
 }
+\examples{
+
+## Create a simSRT object
+toySRT  <- createSRT(count_in=toyData$toyCount,loc_in = toyData$toyInfo)
+set.seed(1)
+## Create New Locations within Profile
+toySRT2 <- srtsim_newlocs(toySRT,new_loc_num=1000)
+
+## Estimate model parameters for data generation
+toySRT2 <- srtsim_fit(toySRT2,sim_schem="tissue")
+
+## Generate synthetic data with estimated parameters
+toySRT2     <- srtsim_count(toySRT2,rrr=1)
+
+## compare the expression pattern of HLA-B in synthetic data and reference data
+visualize_gene(simsrt=toySRT2,plotgn = "HLA-B")
+}

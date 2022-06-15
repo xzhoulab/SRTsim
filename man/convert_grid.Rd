@@ -15,3 +15,15 @@ Returns a numeric vector oof integer coordinate
 \description{
 Convert continuous coordinate into integer, essential for BayesSpace to determine the neighborhood info
 }
+\examples{
+
+## Create a simSRT object
+toySRT  <- createSRT(count_in=toyData$toyCount,loc_in = toyData$toyInfo)
+set.seed(1)
+
+## Create New Locations within Profile
+toySRT2  <- srtsim_newlocs(toySRT,new_loc_num=1000)
+
+## Convert non-integer x-coordinates into an integer value
+newGrid_x <- convert_grid(simcolData(toySRT2)$x)
+}

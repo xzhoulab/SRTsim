@@ -1,11 +1,19 @@
 
-#' Create SRT object based on spatialExperiment
+#' Create simSRT object
 #' @param count_in     A gene expression count \code{matrix}
 #' @param loc_in       A location \code{dataframe} with colnames x,y,label
 #' @param refID    A \code{character} reference sample identifier. Default = \code{ref1}.
 #' @return Returns a spatialExperiment-based object 
-#' 
+#' @importFrom methods new
 #' @export 
+#' @examples
+#'
+#' ## Create a simSRT object
+#' toySRT  <- createSRT(count_in=toyData$toyCount,loc_in = toyData$toyInfo)
+#'
+#' ## Explore the object
+#' toySRT 
+
 
 createSRT <- function(count_in, loc_in,refID="ref1"){
   	

@@ -9,6 +9,21 @@ refCounts(x)
 \arguments{
 \item{x}{SRTsim object}
 }
+\value{
+Returns a reference count matrix
+}
 \description{
 Access reference count matrix
+}
+\examples{
+
+## Create a simSRT object
+toySRT  <- createSRT(count_in=toyData$toyCount,loc_in = toyData$toyInfo)
+set.seed(1)
+## Estimate model parameters for data generation
+toySRT <- srtsim_fit(toySRT,sim_schem="tissue")
+## Generate synthetic data with estimated parameters
+toySRT <- srtsim_count(toySRT)
+refCounts(toySRT)[1:3,1:3]
+
 }

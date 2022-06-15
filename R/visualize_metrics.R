@@ -6,6 +6,25 @@
 #' @return Returns a list of ggplots
 #' @importFrom ggpubr ggarrange
 #' @export
+#' @examples
+#' 
+#'
+#' ## Create a simSRT object
+#' toySRT  <- createSRT(count_in=toyData$toyCount,loc_in = toyData$toyInfo)
+#' set.seed(1)
+#'
+#' ## Estimate model parameters for data generation
+#' toySRT <- srtsim_fit(toySRT,sim_schem="tissue")
+#'
+#' ## Generate synthetic data with estimated parameters
+#' toySRT <- srtsim_count(toySRT)
+#'
+#' ## Compute metrics 
+#' toySRT   <- compareSRT(toySRT)
+#'
+#' ## Visualize Metrics
+#' visualize_metrics(toySRT)
+
 visualize_metrics <- function(simsrt,metric_type=c("all","genewise","locwise","GeneMean","GeneVar","GeneCV","GeneZeroProp","LocZeroProp","LocLibSize"),colorpalette="Set3",axistextsize=12){
 
 	if(is.null(simsrt@metaParam$compared)){

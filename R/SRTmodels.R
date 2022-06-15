@@ -41,7 +41,8 @@ nb_loglik_mom <- function(th,mu, y){
 #' @param x A vector of count values to be fitted
 #' @param maxiter number of iteration
 #' @return Returns a vector with dispersion theta, mean parameter mu, loglikelihood value llk, convergence
-#' 
+#' @importFrom MASS glm.nb
+#' @importFrom stats logLik optim
 #' @noRd
 #' @keywords internal
 
@@ -106,7 +107,8 @@ pos_loglik <- function(mu,y){
 #' @param x A vector of count values to be fitted
 #' @param maxiter number of iteration
 #' @return Returns a vector with mean paramter lambda, loglikelihood value llk, convergence
-#' 
+#' @importFrom stats optim
+
 fit_pos_optim <- function(x,maxiter= 500){
   ## need to improve for the sparsematrix
 	m = mean(x)
@@ -150,7 +152,7 @@ zip_loglik <- function(lam,y){
 #' @param x A vector of count values to be fitted
 #' @param maxiter number of iteration
 #' @return Returns a vector with zero proportion p0, mean parameter mu, loglikelihood value llk, convergence, and if zip
-#' 
+#' @importFrom stats optim
 #' @noRd
 #' @keywords internal
 
@@ -220,7 +222,7 @@ zinb_loglik <- function(par_init,y){
 #' @param x A vector of count values to be fitted
 #' @param maxiter number of iteration
 #' @return Returns a vector with zero proportion p0, dispersion parameter theta, mean parameter mu, loglikelihood value llk, convergence, and if zinb
-#' 
+#' @importFrom stats optim
 #' @noRd
 #' @keywords internal
 

@@ -8,8 +8,27 @@
 #' @param virDirection Specification of \code{direction} in the \code{scale_color_viridis}. Default is "-1".  User can choose '1' or '-1'.
 #' @return Returns two expression plots for the gene of interest
 #' @importFrom ggpubr ggarrange
+#' @importFrom viridis scale_color_viridis
 #' @import ggplot2
 #' @export
+#' @examples
+#' 
+#' ## Create a simSRT object
+#' toySRT  <- createSRT(count_in=toyData$toyCount,loc_in = toyData$toyInfo)
+#' set.seed(1)
+#' ## Create New Locations within Profile
+#' toySRT2 <- srtsim_newlocs(toySRT,new_loc_num=1000)
+#'
+#' ## Estimate model parameters for data generation
+#' toySRT2 <- srtsim_fit(toySRT2,sim_schem="tissue")
+#'
+#' ## Generate synthetic data with estimated parameters
+#' toySRT2     <- srtsim_count(toySRT2,rrr=1)
+#'
+#' ## compare the expression pattern of HLA-B in synthetic data and reference data
+#' visualize_gene(simsrt=toySRT2,plotgn = "HLA-B")
+
+
 visualize_gene <- function(simsrt,plotgn=NULL,ptsizeCount=2,textsizeCount= 12,rev_y = FALSE,virOption="D",virDirection=-1){
     ref_pd <- cbind.data.frame(simsrt@refcolData[,c("x","y")],relative_func(simsrt@refCounts[plotgn,]))
     sim_pd <- cbind.data.frame(simsrt@simcolData[,c("x","y")],relative_func(simsrt@simCounts[plotgn,]))

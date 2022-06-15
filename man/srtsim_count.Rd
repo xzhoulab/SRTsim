@@ -12,7 +12,8 @@ srtsim_count(
   rrr = NULL,
   nn_num = 5,
   nn_func = c("mean", "median", "ransam"),
-  numCores = 1
+  numCores = 1,
+  verbose = FALSE
 )
 }
 \arguments{
@@ -31,10 +32,25 @@ srtsim_count(
 \item{nn_func}{A character string specifying how the psedo-count to be generated. options include 'mean','median' and 'ransam'.}
 
 \item{numCores}{The number of cores to use}
+
+\item{verbose}{Whether to show running information for srtsim_count}
 }
 \value{
 Returns a SRTsim object with a newly generated count matrix
 }
 \description{
 Generate Data with Estimated Parameters
+}
+\examples{
+
+## Create a simSRT object
+toySRT  <- createSRT(count_in=toyData$toyCount,loc_in = toyData$toyInfo)
+set.seed(1)
+## Estimate model parameters for data generation
+toySRT <- srtsim_fit(toySRT,sim_schem="tissue")
+## Generate synthetic data with estimated parameters
+toySRT <- srtsim_count(toySRT)
+
+## Explore the synthetic count matrix
+simCounts(toySRT)[1:3,1:3]
 }

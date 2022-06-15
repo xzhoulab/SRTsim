@@ -6,8 +6,20 @@
 #' @param voting_nn    A integer of nearest neighbors used in label assignment for new generated locations. Default is 3.  
 #' @param loc_lay_out  a character string specifying arrangement of new generated spatial locations. Default is "grid"
 #' @return Returns a object with estimated parameters
-#' 
+#' @importFrom pdist pdist
 #' @export 
+#' @examples
+#'
+#' ## Create a simSRT object
+#' toySRT  <- createSRT(count_in=toyData$toyCount,loc_in = toyData$toyInfo)
+#' set.seed(1)
+#'
+#' ## Create New Locations within Profile
+#' toySRT2  <- srtsim_newlocs(toySRT,new_loc_num=1000)
+#'
+#' ## Explore New Generated Locations
+#' simcolData(toySRT2)
+
 
 srtsim_newlocs <- function(simsrt,
                             new_loc_num = NULL,
@@ -84,8 +96,12 @@ vote_func <- function(x){
 #' @param preLoc   A data frame of shape n by 3 that x, y coodinates and domain label
 #' @return Returns a n by 2 dataframe with newly generated spatial locations
 #' @importFrom spatstat.geom area
+#' @importFrom sp Polygon spsample
+#' @importFrom sf st_bbox st_make_grid st_intersection st_coordinates
+#' @importFrom magrittr %>%
 #' @noRd
 #' @keywords internal
+
 
 simNewLocs <- function(newN,lay_out=c("grid","random"),preLoc){
     lay_out <- match.arg(lay_out)
@@ -114,6 +130,18 @@ simNewLocs <- function(newN,lay_out=c("grid","random"),preLoc){
 #' @param x A numeric vector of continuous coordinate
 #' @return Returns a numeric vector oof integer coordinate
 #' @export
+#' @examples
+#'
+#' ## Create a simSRT object
+#' toySRT  <- createSRT(count_in=toyData$toyCount,loc_in = toyData$toyInfo)
+#' set.seed(1)
+#'
+#' ## Create New Locations within Profile
+#' toySRT2  <- srtsim_newlocs(toySRT,new_loc_num=1000)
+#'
+#' ## Convert non-integer x-coordinates into an integer value
+#' newGrid_x <- convert_grid(simcolData(toySRT2)$x)
+
 convert_grid <- function(x){
     uniqx <- unique(x)
     uniqx_order <- uniqx[order(uniqx)]

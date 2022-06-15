@@ -10,6 +10,37 @@
 #' @return Returns a SRTsim object with a newly generated count matrix
 #' 
 #' @export
+#' @importFrom matrixStats rowMedians
+#' @importFrom methods as
+#' @importFrom parallel mclapply
+#' @examples
+#' 
+#' ## Prepare Data From LIBD Sample
+#' subinfo <- exampleLIBD$info[,c("imagecol","imagerow","layer")]
+#' colnames(subinfo) <- c("x","y","label")
+#' gns 	<- c("ENSG00000168314","ENSG00000183036", "ENSG00000132639" )
+#' 
+#' ## Create a simSRT Object with Three Genes For a Fast Example
+#' simSRT1 <- createSRT(count_in= exampleLIBD$count[gns,],loc_in =subinfo)
+#' 
+#' ## Estimate model parameters for data generation: domain-specific 
+#' simSRT1 <- srtsim_fit(simSRT1,sim_schem="domain")
+#' 
+#' ## Define New Layer Structures
+#' simSRT1@refcolData$target_label <- "NL1"
+#' simSRT1@refcolData$target_label[simSRT1@refcolData$label %in% paste0("Layer",4:5)] <- "NL2"
+#' simSRT1@refcolData$target_label[simSRT1@refcolData$label %in% c("Layer6","WM")] <- "NL3"
+#' 
+#' ## Perform Data Generation for New Defined Layer Structures
+#' ## Reference: WM --> NL3, Layer5--> NL2, Layer3 --> NL1
+#' simSRT1 <- srtsim_count_affine(simSRT1,
+#' 								reflabel=c("Layer3","Layer5","WM"),
+#' 								targetlabel=c("NL1","NL2","NL3"),
+#' 								nn_func="ransam"
+#' 								)
+#' 
+#' ## Visualize the Expression Pattern for Gene of Interest
+#' visualize_gene(simsrt=simSRT1,plotgn = "ENSG00000168314",rev_y=TRUE,ptsizeCount=1)
 
 
 srtsim_count_affine <- function(simsrt,
@@ -53,7 +84,6 @@ srtsim_count_affine <- function(simsrt,
 	simsrt@simcolData		<- newinfo
 	simsrt@simCounts 		<- as(final_df,"sparseMatrix")
 
-
 	return(simsrt)
 }
 
@@ -69,6 +99,9 @@ srtsim_count_affine <- function(simsrt,
 #' @return Returns a newly generated count matrix
 #' @noRd
 #' @keywords internal
+#' @importFrom Matrix rowMeans
+#' @importFrom stats rnbinom rbinom
+#' @importFrom pdist pdist
 
 srtsim_count_affine_single <- function(simsrt,
 								orig_label, 
@@ -189,6 +222,11 @@ srtsim_count_affine_single <- function(simsrt,
 #' @return Returns a dataframe with transformed location information
 #' @noRd
 #' @keywords internal
+#' @importFrom sf st_as_sf
+#' @importFrom concaveman concaveman
+#' @importFrom Morpho computeTransform applyTransform
+#' @importFrom magrittr %>%
+
 
 transform_mat_func <- function(info_df,idx1,idx2,local_sid=NULL,trans_type="affine"){
 
@@ -214,7 +252,7 @@ transform_mat_func <- function(info_df,idx1,idx2,local_sid=NULL,trans_type="affi
 		set.seed(local_sid)
 		moving_data <- as.matrix(poly_coords1[sort(sample(n1,k)),])
 		fixed_data  <- as.matrix(poly_coords2[sort(sample(n2,k)),])
-		.Random.seed <<- old
+		.Random.seed <- old
 	}else{
 		moving_data <- as.matrix(poly_coords1[sort(sample(n1,k)),])
 		fixed_data  <- as.matrix(poly_coords2[sort(sample(n2,k)),])

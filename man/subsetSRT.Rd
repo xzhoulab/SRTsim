@@ -17,3 +17,12 @@ Returns a spatialExperiment-based object
 \description{
 Subset SRT object based on domain labels of interest
 }
+\examples{
+
+## Create a simSRT object
+toySRT  <- createSRT(count_in=toyData$toyCount,loc_in = toyData$toyInfo)
+set.seed(1)
+## Only Keep the Spatial Locations labelled as "A" in the reference data
+subtoySRT <- subsetSRT(toySRT,sel_label = "A")
+
+}

@@ -1,21 +1,44 @@
 Package: SRTsim
 Type: Package
 Title: Simulator for Spatially Resolved Transcriptomics
-Version: 0.99.0
-Date: 2022-06-10
-Author: Jiaqiang Zhu, Lulu Shang and Xiang Zhou
+Version: 0.99.2
+Date: 2022-06-13
+Authors@R: c(
+  person(given = "Jiaqiang", family = "Zhu", email = "jiaqiang@umich.edu", role = c("aut","ctb","cre"), comment = c(ORCID = "0000-0002-1455-0041")),
+  person(given = "Lulu", family = "Shang", email = "shanglu@umich.edu", role = "aut", comment = c(ORCID = "0000-0002-2480-3065")),
+  person(given = "Xiang", family = "Zhou", email = "xzhousph@umich.edu", role = "aut", comment = c(ORCID = "0000-0002-4331-7599"))
+  )
 Maintainer: Jiaqiang Zhu <jiaqiang@umich.edu>
-Description: A flexible simulator for spatially resolved transcriptomics (SRT) data with pattern preservation. 
+Description: An independent, reproducible, and flexible Spatially Resolved Transcriptomics (SRT) simulation framework that can be used to facilitate the development of SRT analytical methods for a wide variety of SRT-specific analyses. It utilizes spatial localization information to simulate SRT expression count data in a reproducible and scalable fashion. Two major simulation schemes are implemented in SRTsim: reference-based and reference-free.
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.2.0
 Roxygen: list(markdown = TRUE)
-Imports: concaveman,sf,sp,spatstat.geom,parallel,pdist,MASS,S4Vectors,stats,BiocGenerics,Matrix,Morpho,matrixStats,plotly,shiny,viridis,shinydashboard,dashboardthemes,shinyBS, ggplot2, ggpubr, spatstat.random
+Imports: concaveman,sf,sp,spatstat.geom,parallel,pdist,MASS,S4Vectors,stats,Matrix,Morpho,matrixStats,plotly,shiny,viridis,shinydashboard,dashboardthemes,shinyBS, ggplot2, ggpubr, spatstat.random,magrittr
 Suggests: knitr,rmarkdown,BiocStyle,RefManageR,BiocManager,sessioninfo
 VignetteBuilder: knitr
 Depends: R (>= 3.5.0), methods
 NeedsCompilation: no
-
-
-
+Collate: 
+    'SRTaffine.R'
+    'SRTcount.R'
+    'SRTfit.R'
+    'SRTmodels.R'
+    'SRTsim_class.R'
+    'body.R'
+    'compareSRT.R'
+    'createSRT.R'
+    'data.R'
+    'globals.R'
+    'reGenCountshiny.R'
+    'runapp.R'
+    'server.R'
+    'shiny2srt.R'
+    'sidebar.R'
+    'simSRTLocs.R'
+    'subsetSRT.R'
+    'ui.R'
+    'utilies_func.R'
+    'visualize_gene.R'
+    'visualize_metrics.R'

@@ -5,10 +5,18 @@
 #' @return Returns a spatialExperiment-based object 
 #' 
 #' @export 
+#' @examples
+#'
+#' ## Create a simSRT object
+#' toySRT  <- createSRT(count_in=toyData$toyCount,loc_in = toyData$toyInfo)
+#' set.seed(1)
+#' ## Only Keep the Spatial Locations labelled as "A" in the reference data
+#' subtoySRT <- subsetSRT(toySRT,sel_label = "A")
+#'
 
 subsetSRT <- function(simsrt,sel_label=NULL){
     if(is.null(sel_label)){
-        cat("## No specific label provided in sel_label, original object returned\n")
+        message("## No specific label provided in sel_label, original object returned")
     }else{
         locfile    <- simsrt@refcolData
         countfile  <- simsrt@refCounts
@@ -18,7 +26,7 @@ subsetSRT <- function(simsrt,sel_label=NULL){
 
         simsrt@refcolData <- subLoc
         simsrt@refCounts  <- subCount 
-        cat("## ",nrow(locfile)-nrow(subLoc),"spatial locations are removed \n")
+        message("## ",nrow(locfile)-nrow(subLoc),"spatial locations are removed")
     }
 
 	return(simsrt)

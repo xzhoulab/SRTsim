@@ -9,6 +9,21 @@ metaParam(x)
 \arguments{
 \item{x}{SRTsim object}
 }
+\value{
+Returns a list of user-specified parameters
+}
 \description{
 Access User-Specified Parameters
+}
+\examples{
+
+## Create a simSRT object
+toySRT  <- createSRT(count_in=toyData$toyCount,loc_in = toyData$toyInfo)
+set.seed(1)
+## Estimate model parameters for data generation
+toySRT <- srtsim_fit(toySRT,sim_schem="tissue")
+## Generate synthetic data with estimated parameters
+toySRT <- srtsim_count(toySRT)
+metaParam(toySRT)
+
 }

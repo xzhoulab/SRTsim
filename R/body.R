@@ -9,8 +9,8 @@ body <- shinydashboard::dashboardBody(
             HTML(
                 "pre { white-space: pre-wrap; word-break: keep-all; word-wrap:break-word;} 
                 #countbrush {
-                color: white;
-                background: blue;
+                color: red;
+                background: yellow;
                 font-family: 'Times New Roman', Times, serif;
                 font-size: 12px;
                 font-style: italic;
@@ -168,60 +168,62 @@ dashboardthemes::shinyDashboardThemeDIY(
                 ),
 
                 column(width=4,
-                    box(width=NULL,solidHeader=TRUE,status="warning",title="Choose CSV File",height=140,
-                    div(style = "margin-top:-20px"),
-                    fluidRow(width = 10,
-                      column(width=5,checkboxInput("header", "Header", TRUE)),
-                      column(width=5,checkboxInput("rownames", "Row Names", TRUE))
+                    box(
+                        width=NULL,solidHeader=TRUE,status="warning",
+                        title="Choose CSV File",
+                        height=140,
+                        div(style = "margin-top:-20px"),
+                        fluidRow(width = 10,
+                          column(width=5,checkboxInput("header", "Header", TRUE)),
+                          column(width=5,checkboxInput("rownames", "Row Names", TRUE))
+                        ),
+                        div(style = "margin-top:-50px"),
+                        fileInput("datafile", label=NULL,
+                          accept = c(
+                            "text/csv",
+                            "text/comma-separated-values,text/plain",
+                            ".csv")
+                        ),
                     ),
-                    div(style = "margin-top:-50px"),
-                    fileInput("datafile", label=NULL,
-                      accept = c(
-                        "text/csv",
-                        "text/comma-separated-values,text/plain",
-                        ".csv")
-                    ),
-                ),
 
-                box(width=NULL,solidHeader=TRUE,status="warning",title="Shape and Layout",
-                    selectInput('shape', 'Shape', c("Square","Circle","User Define Shape","User Define Spots")),
-                    fluidRow(
-                      column(width=6,selectInput('arrange', 'Spots Layout', c("Random","Grid"))),  
-                      column(width=6, numericInput('sid', 'Reproducible Seed', 1))
+                    box(width=NULL,solidHeader=TRUE,status="warning",title="Shape and Layout",
+                        selectInput('shape', 'Shape', c("Square","Circle","User Define Shape","User Define Spots")),
+                        fluidRow(
+                          column(width=6,selectInput('arrange', 'Spots Layout', c("Random","Grid"))),  
+                          column(width=6, numericInput('sid', 'Reproducible Seed', 1))
+                        ),
+                        sliderInput("numloc", "Expected Number of Spots:",min = 100, max = 10000, value = 1000, step = 100)
                     ),
-                    sliderInput("numloc", "Expected Number of Spots:",min = 100, max = 10000, value = 1000, step = 100)
-                ),
 
-                box(width=NULL,solidHeader=TRUE,status="warning",title="Group Assignment",
-                    fluidRow(column(6,textInput('NewGroup', label = 'New Group ID')),
-                    column(6,numericInput('fc', 'Fold Change in Mean', 1))),
-                    fluidRow(
-                        column(width=12,
-                            column(width=6,actionButton('Change','Confirm Assignment',icon=icon("check-circle"))),
-                            column(width=6,actionButton("loc_pop", "View Location File", icon=icon("table")))
+                    box(width=NULL,solidHeader=TRUE,status="warning",title="Group Assignment",
+                        fluidRow(column(6,textInput('NewGroup', label = 'New Group ID')),
+                        column(6,numericInput('fc', 'Fold Change in Mean', 1))),
+                        # fluidRow(
+                        #     column(width=12,
+                        #         column(width=6,actionButton('Change',label=HTML('Confirm <br/> Assignment'),icon=icon("check-circle"))),
+                        #         column(width=6,actionButton("loc_pop", label="View Location File", icon=icon("table")))
+                        #     )
+
+
+                            fluidRow(
+                                column(width=8,offset=3,actionButton('Change',label='Confirm Assignment',icon=icon("check-circle"),width='92%',style = "margin-bottom: 2px;")
+                            ),
+                            fluidRow(
+                                column(width=8,offset=3,actionButton("loc_pop", label="View Location File", icon=icon("table"),width='90%'))
+                            )
                         )
+                    ),
+
+                    box(solidHeader=TRUE,status="warning",title="Figure Adjustment",width = NULL,
+                        sliderInput("ptsize","Point Size",min=0.5,max=10,value=1),
+                        sliderInput("textsize","Text Size",min=5,max=20,value=10)
                     )
-                ),
-
-                box(solidHeader=TRUE,status="warning",title="Figure Adjustment",width = NULL,
-                    sliderInput("ptsize","Point Size",min=0.5,max=10,value=1),
-                    sliderInput("textsize","Text Size",min=5,max=20,value=10)
-                )
-
-                # ,
-                # box(solidHeader=TRUE,status="warning",title="Simple Guidance For the Interactive Plot",width = NULL,
-                #     p("1. Move cursor over the figure, the plotly options will show up"), 
-                #     p("2. Click and select points using the box or the lasso select option"), 
-                #     p("3. Double click the figure to deselect the points"), 
-                #     p("4. Single click the legend text to hide selected groups"), 
-                #     p("5. Double click the legend text to hide all other groups"), 
-                # )
                 )
             ), # end of the fluidRow 
 
             bsModal("modalExample", "Location Data Table", "loc_pop", size = "large",
-                dataTableOutput("distTable"),
-                downloadButton("downloadPopLoc", "Download Location File")
+                dataTableOutput("distTable")
+                # downloadButton("downloadPopLoc", "Download Location File")
             ),
             ## for now, nothing would come 
             verbatimTextOutput('brush4')
@@ -302,8 +304,8 @@ dashboardthemes::shinyDashboardThemeDIY(
 
                 bsModal("modalCount", "Count Data Table", "count_pop", 
                     size = "large",
-                    dataTableOutput("countTable"),
-                    downloadButton("downloadPopCount", "Download CountData File")
+                    dataTableOutput("countTable")
+                    # downloadButton("downloadPopCount", "Download CountData File")
                 )
             )
         )## end of tabItem simCounts

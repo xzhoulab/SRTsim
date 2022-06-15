@@ -27,6 +27,8 @@ setClass("simSRT",
     )
 )
 
+
+#' @importFrom S4Vectors coolcat
 setMethod("show", "simSRT",
     function(object)
 {
@@ -36,18 +38,6 @@ setMethod("show", "simSRT",
 
     obj_refcounts <- object@refCounts
     
-    ## metadata()
-    # expt <- names(metadata(object))
-    # if (is.null(expt))
-    #     expt <- character(length(metadata(object)))
-    # coolcat("metadata(%d): %s\n", expt)
-
-    # ## assays()
-    # nms <- assayNames(object)
-    # if (is.null(nms))
-    #     nms <- character(length(assays(obj_assay, withDimnames=FALSE)))
-    # coolcat("assays(%d): %s\n", nms)
-
     ## rownames()
     rownames <- rownames(obj_refcounts)
     if (!is.null(rownames)) coolcat("Reference rownames(%d): %s\n", rownames)
@@ -65,61 +55,142 @@ setMethod("show", "simSRT",
     coolcat("refcolData names(%d): %s\n", names(refcolData(object)))
 })
 
-# setGeneric("colData", function(x, ...) standardGeneric("colData"))
-
-# ## Fix old DataFrame instances on-the-fly.
-# setMethod("colData", "SRT",
-#     function(x, ...) updateObject(x@colData, check=FALSE)
-# )
-
-# setGeneric("counts", function(x, ...) standardGeneric("counts"))
-# setMethod("counts", "SRT",
-#     function(x, ...) updateObject(x@obj_refcounts, check=FALSE)
-# )
-
 
 #' Access reference count matrix
 #' @param x SRTsim object
 #' @export
+#' @return Returns a reference count matrix
+#' @examples
+#'
+#' ## Create a simSRT object
+#' toySRT  <- createSRT(count_in=toyData$toyCount,loc_in = toyData$toyInfo)
+#' set.seed(1)
+#' ## Estimate model parameters for data generation
+#' toySRT <- srtsim_fit(toySRT,sim_schem="tissue")
+#' ## Generate synthetic data with estimated parameters
+#' toySRT <- srtsim_count(toySRT)
+#' refCounts(toySRT)[1:3,1:3]
+#'
 setGeneric("refCounts", function(x) x@refCounts)
 
 #' Access reference colData 
 #' @param x SRTsim object
 #' @export
+#' @return Returns the colData of reference data
+#' @examples
+#'
+#' ## Create a simSRT object
+#' toySRT  <- createSRT(count_in=toyData$toyCount,loc_in = toyData$toyInfo)
+#' set.seed(1)
+#' ## Estimate model parameters for data generation
+#' toySRT <- srtsim_fit(toySRT,sim_schem="tissue")
+#' ## Generate synthetic data with estimated parameters
+#' toySRT <- srtsim_count(toySRT)
+#' refcolData(toySRT)
+#'
 setGeneric("refcolData", function(x) x@refcolData)
 
 #' Access reference rowData 
 #' @param x SRTsim object
 #' @export
+#' @return Returns the rowData of reference data
+#' @examples
+#'
+#' ## Create a simSRT object
+#' toySRT  <- createSRT(count_in=toyData$toyCount,loc_in = toyData$toyInfo)
+#' set.seed(1)
+#' ## Estimate model parameters for data generation
+#' toySRT <- srtsim_fit(toySRT,sim_schem="tissue")
+#' ## Generate synthetic data with estimated parameters
+#' toySRT <- srtsim_count(toySRT)
+#' refrowData(toySRT)
+#'
 setGeneric("refrowData", function(x) x@refrowData)
 
 
 #' Access synthetic count matrix 
-#' @rdname simCounts
 #' @param x SRTsim object
 #' @export
+#' @return Returns a synthetic count matrix
+#' @examples
+#'
+#' ## Create a simSRT object
+#' toySRT  <- createSRT(count_in=toyData$toyCount,loc_in = toyData$toyInfo)
+#' set.seed(1)
+#' ## Estimate model parameters for data generation
+#' toySRT <- srtsim_fit(toySRT,sim_schem="tissue")
+#' ## Generate synthetic data with estimated parameters
+#' toySRT <- srtsim_count(toySRT)
+#' simCounts(toySRT)[1:3,1:3]
+#'
 setGeneric("simCounts", function(x) x@simCounts)
 
 #' Access synthetic colData 
 #' @param x SRTsim object
 #' @export
+#' @return Returns the colData of synthetic data
+#' @examples
+#'
+#' ## Create a simSRT object
+#' toySRT  <- createSRT(count_in=toyData$toyCount,loc_in = toyData$toyInfo)
+#' set.seed(1)
+#' ## Estimate model parameters for data generation
+#' toySRT <- srtsim_fit(toySRT,sim_schem="tissue")
+#' ## Generate synthetic data with estimated parameters
+#' toySRT <- srtsim_count(toySRT)
+#' simcolData(toySRT)
+#'
 setGeneric("simcolData", function(x) x@simcolData)
 
 #' Access synthetic rowData 
 #' @param x SRTsim object
 #' @export
-
+#' @return Returns the rowData of synthetic data
+#' @examples
+#'
+#' ## Create a simSRT object
+#' toySRT  <- createSRT(count_in=toyData$toyCount,loc_in = toyData$toyInfo)
+#' set.seed(1)
+#' ## Estimate model parameters for data generation
+#' toySRT <- srtsim_fit(toySRT,sim_schem="tissue")
+#' ## Generate synthetic data with estimated parameters
+#' toySRT <- srtsim_count(toySRT)
+#' simrowData(toySRT)
+#'
 setGeneric("simrowData", function(x) x@simrowData)
 
 
 #' Access Model Fitting Parameters 
 #' @param x SRTsim object
 #' @export
-
+#' @return Returns a list of estimated parameters by fitting models
+#' @examples
+#'
+#' ## Create a simSRT object
+#' toySRT  <- createSRT(count_in=toyData$toyCount,loc_in = toyData$toyInfo)
+#' set.seed(1)
+#' ## Estimate model parameters for data generation
+#' toySRT <- srtsim_fit(toySRT,sim_schem="tissue")
+#' ## Generate synthetic data with estimated parameters
+#' toySRT <- srtsim_count(toySRT)
+#' EstParam(toySRT)
+#'
 setGeneric("EstParam", function(x) x@EstParam)
 
 #' Access User-Specified Parameters
 #' @param x SRTsim object
 #' @export
+#' @return Returns a list of user-specified parameters
+#' @examples
+#'
+#' ## Create a simSRT object
+#' toySRT  <- createSRT(count_in=toyData$toyCount,loc_in = toyData$toyInfo)
+#' set.seed(1)
+#' ## Estimate model parameters for data generation
+#' toySRT <- srtsim_fit(toySRT,sim_schem="tissue")
+#' ## Generate synthetic data with estimated parameters
+#' toySRT <- srtsim_count(toySRT)
+#' metaParam(toySRT)
+#'
 setGeneric("metaParam", function(x) x@metaParam)
 

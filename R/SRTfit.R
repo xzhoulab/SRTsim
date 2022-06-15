@@ -9,6 +9,15 @@
 #' @return Returns an object with estimated parameters
 #' @importClassesFrom S4Vectors SimpleList
 #' @export 
+#'
+#' @examples
+#'
+#' ## Create a simSRT object
+#' toySRT  <- createSRT(count_in=toyData$toyCount,loc_in = toyData$toyInfo)
+#' set.seed(1)
+#' ## Estimate model parameters for data generation
+#' toySRT <- srtsim_fit(toySRT,sim_schem="tissue")
+#'
 
 srtsim_fit <- function(simsrt,
                         marginal = c("auto_choose", "zinb", "nb", "poisson","zip"),
@@ -62,7 +71,8 @@ srtsim_fit <- function(simsrt,
 #' @param maxiter      The number of iterations for the model-fitting. Default is 500. 
 #' @return Returns a list with estimated parameters for all the genes
 #' @importClassesFrom S4Vectors SimpleList
-#' 
+#' @importFrom Matrix rowSums
+#' @importFrom methods as
 #' @noRd
 #' @keywords internal
 
@@ -125,7 +135,7 @@ fit_single <- function(x,
 #' @param pval_cutoff  Cutoff of p-value of the lrt that determines whether there is zero inflation. Default is 0.05
 #' @param maxiter      The number of iterations for the model-fitting. Default is 100 
 #' @return Returns a n by 3 matrix with estimated parameters for all the genes
-#' 
+#' @importFrom stats pchisq
 #' @noRd
 #' @keywords internal
 

@@ -12,3 +12,10 @@ A list that contains a count matrix, a location dataframe, and all parameter spe
 \description{
 Run the SRTsim Shiny Application
 }
+\examples{
+
+\dontrun{
+ ## Will Load an Interactive Session
+shinyOutput <- SRTsim_shiny()
+}
+}

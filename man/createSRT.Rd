@@ -2,7 +2,7 @@
 % Please edit documentation in R/createSRT.R
 \name{createSRT}
 \alias{createSRT}
-\title{Create SRT object based on spatialExperiment}
+\title{Create simSRT object}
 \usage{
 createSRT(count_in, loc_in, refID = "ref1")
 }
@@ -17,5 +17,13 @@ createSRT(count_in, loc_in, refID = "ref1")
 Returns a spatialExperiment-based object
 }
 \description{
-Create SRT object based on spatialExperiment
+Create simSRT object
+}
+\examples{
+
+## Create a simSRT object
+toySRT  <- createSRT(count_in=toyData$toyCount,loc_in = toyData$toyInfo)
+
+## Explore the object
+toySRT 
 }

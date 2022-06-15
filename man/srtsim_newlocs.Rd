@@ -26,3 +26,15 @@ Returns a object with estimated parameters
 \description{
 Fit the marginal distributions for each row of a count matrix
 }
+\examples{
+
+## Create a simSRT object
+toySRT  <- createSRT(count_in=toyData$toyCount,loc_in = toyData$toyInfo)
+set.seed(1)
+
+## Create New Locations within Profile
+toySRT2  <- srtsim_newlocs(toySRT,new_loc_num=1000)
+
+## Explore New Generated Locations
+simcolData(toySRT2)
+}

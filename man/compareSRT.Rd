@@ -15,3 +15,15 @@ Returns an object with summarized metrics
 \description{
 Summarize metrics for reference data and synthetic data
 }
+\examples{
+
+## Create a simSRT object
+toySRT  <- createSRT(count_in=toyData$toyCount,loc_in = toyData$toyInfo)
+set.seed(1)
+## Estimate model parameters for data generation
+toySRT <- srtsim_fit(toySRT,sim_schem="tissue")
+## Generate synthetic data with estimated parameters
+toySRT <- srtsim_count(toySRT)
+## Compute metrics 
+toySRT   <- compareSRT(toySRT)
+}

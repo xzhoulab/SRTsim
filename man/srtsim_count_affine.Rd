@@ -38,3 +38,32 @@ Returns a SRTsim object with a newly generated count matrix
 \description{
 Generate Data with Estimated Parameters For A New Designed Pattern
 }
+\examples{
+
+## Prepare Data From LIBD Sample
+subinfo <- exampleLIBD$info[,c("imagecol","imagerow","layer")]
+colnames(subinfo) <- c("x","y","label")
+gns 	<- c("ENSG00000168314","ENSG00000183036", "ENSG00000132639" )
+
+## Create a simSRT Object with Three Genes For a Fast Example
+simSRT1 <- createSRT(count_in= exampleLIBD$count[gns,],loc_in =subinfo)
+
+## Estimate model parameters for data generation: domain-specific 
+simSRT1 <- srtsim_fit(simSRT1,sim_schem="domain")
+
+## Define New Layer Structures
+simSRT1@refcolData$target_label <- "NL1"
+simSRT1@refcolData$target_label[simSRT1@refcolData$label \%in\% paste0("Layer",4:5)] <- "NL2"
+simSRT1@refcolData$target_label[simSRT1@refcolData$label \%in\% c("Layer6","WM")] <- "NL3"
+
+## Perform Data Generation for New Defined Layer Structures
+## Reference: WM --> NL3, Layer5--> NL2, Layer3 --> NL1
+simSRT1 <- srtsim_count_affine(simSRT1,
+								reflabel=c("Layer3","Layer5","WM"),
+								targetlabel=c("NL1","NL2","NL3"),
+								nn_func="ransam"
+								)
+
+## Visualize the Expression Pattern for Gene of Interest
+visualize_gene(simsrt=simSRT1,plotgn = "ENSG00000168314",rev_y=TRUE,ptsizeCount=1)
+}

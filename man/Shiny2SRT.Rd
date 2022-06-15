@@ -15,3 +15,12 @@ Returns a SRTsim object with user-specified parameters stored in metaParam slot.
 \description{
 Create a SRTsim object from reference-free shinyoutput
 }
+\examples{
+
+shinySRT <- Shiny2SRT(toyShiny)
+
+## Explore the new SRT object
+shinySRT@metaParam
+shinySRT@simCounts[1:3,1:3]
+shinySRT@simcolData
+}

@@ -7,10 +7,25 @@
 #' @param nn_num A integer of nearest neighbors, default is 5.
 #' @param nn_func A character string specifying how the psedo-count to be generated. options include 'mean','median' and 'ransam'.
 #' @param numCores The number of cores to use 
+#' @param verbose Whether to show running information for srtsim_count
 #' @return Returns a SRTsim object with a newly generated count matrix
-#' 
+#' @importFrom pdist pdist
+#' @importFrom parallel mclapply
 #' @export
- 
+#'
+#' @examples
+#'
+#' ## Create a simSRT object
+#' toySRT  <- createSRT(count_in=toyData$toyCount,loc_in = toyData$toyInfo)
+#' set.seed(1)
+#' ## Estimate model parameters for data generation
+#' toySRT <- srtsim_fit(toySRT,sim_schem="tissue")
+#' ## Generate synthetic data with estimated parameters
+#' toySRT <- srtsim_count(toySRT)
+#'
+#' ## Explore the synthetic count matrix
+#' simCounts(toySRT)[1:3,1:3]
+
 srtsim_count <- function(simsrt,
                         breaktie = "random",
                         total_count_new=NULL,
@@ -18,7 +33,8 @@ srtsim_count <- function(simsrt,
                         rrr = NULL,
                         nn_num = 5,
                         nn_func = c('mean','median',"ransam"),
-                        numCores = 1
+                        numCores = 1,
+                        verbose =FALSE
                                 ){
 
     nn_func         <- match.arg(nn_func)
@@ -61,7 +77,8 @@ srtsim_count <- function(simsrt,
     }else{
         r <- rrr
     }
-    cat(paste0("The ratio between the seqdepth per location is: ",r,"\n"))
+    
+    if(verbose){cat(paste0("The ratio between the seqdepth per location is: ",r,"\n"))}
 
     ## consider the case without new locations
     if(oldnum_loc == newnum_loc){
@@ -108,7 +125,7 @@ srtsim_count <- function(simsrt,
 
             loclist <- list(simcolData(simsrt),refcolData(simsrt))
             for(ilabel in sel_label){
-                cat("Simulate count for ",ilabel,"...\n")
+                if(verbose){cat("Simulate count for ",ilabel,"...\n")}
                 sub_new_loc <- loclist[[1]][loclist[[1]]$label == ilabel,]
                 sub_old_loc <- loclist[[2]][loclist[[2]]$label == ilabel,]
 
@@ -149,7 +166,7 @@ srtsim_count <- function(simsrt,
 #' @param breaktie A character string specifying how ties are treated.  Same as the "tie.method" in rank function
 #' @param numCores The number of cores to use 
 #' @return Returns a count matrix
-#' 
+#' @importFrom stats rnbinom rbinom
 #' @noRd
 #' @keywords internal
 
@@ -249,13 +266,11 @@ srtsim_simulate_count_rank_diff <- function(model_params,
                               nn_func = c('mean','median',"ransam"),
                               breaktie = "random",
                               numCores = 1){
-  
 
-
-##============================
-## need to rethink the nn_mat
-## previous was calculated based on the all locations
-## here, we may want to calculate one based on the same type
+    ##============================
+    ## need to rethink the nn_mat
+    ## previous was calculated based on the all locations
+    ## here, we may want to calculate one based on the same type
 
     nn_func   <- match.arg(nn_func)
     p1        <- length(model_params$gene_sel1)

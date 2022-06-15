@@ -30,3 +30,12 @@ Returns an object with estimated parameters
 \description{
 Fit the marginal distributions for each row of a count matrix
 }
+\examples{
+
+## Create a simSRT object
+toySRT  <- createSRT(count_in=toyData$toyCount,loc_in = toyData$toyInfo)
+set.seed(1)
+## Estimate model parameters for data generation
+toySRT <- srtsim_fit(toySRT,sim_schem="tissue")
+
+}
