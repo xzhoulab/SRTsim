@@ -7,6 +7,9 @@
 #' @import ggplot2
 server <- function(input, output, session){
     
+    ## global reactiveValues list
+    globalVarList <- reactiveValues()
+
     filedata <- reactive({
         inFile <- input$datafile
         if(is.null(inFile)) return(NULL)
@@ -32,12 +35,8 @@ server <- function(input, output, session){
     })
 
 
-    ## global reactiveValues list
-    globalVarList <- reactiveValues()
-
-
     output$plot1 <- plotly::renderPlotly({
-        if(is.null(globalVarList$locdf)){
+        if(is.null(globalVarList$vv)){
             loclist <- newLocdata()
             g1      <- loclist$simLoc
             globalVarList$locdf <- g1
