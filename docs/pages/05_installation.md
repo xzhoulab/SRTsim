@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Installation
-permalink: /04_installation/
+permalink: /05_installation/
 ---
 
 `SRTsim` is implemented as an R package, which can be installed from GitHub by:
