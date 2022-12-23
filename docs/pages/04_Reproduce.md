@@ -9,5 +9,6 @@ permalink: /04_Reproduce/
 
 #### Code for Analysis
   * [Clustering](https://github.com/xzhoulab/SRTsim-Analysis/tree/main/clustering)
+  * [Cell-Cell Communications](https://github.com/xzhoulab/SRTsim-Analysis/tree/main/CCI_analysis)
 
 
