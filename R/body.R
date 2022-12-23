@@ -157,7 +157,9 @@ dashboardthemes::shinyDashboardThemeDIY(
                 column(width=8, 
                     box(title="Visualization",status="success",solidHeader=TRUE,width = NULL,
                     # align="middle",plotly::plotlyOutput('plot1',inline=FALSE),height=600),
-                     align="middle",plotly::plotlyOutput('plot1',inline=TRUE,width="auto",height="auto")),
+                     # align="middle",plotly::plotlyOutput('plot1',inline=TRUE,width="auto",height="auto")
+                        align="middle",plotly::plotlyOutput('plot1')
+                     ),
                     br(),
                     fluidRow(
                     column(width=6,box(title="Interactive Selection Info",width=NULL,status="primary",solidHeader=TRUE,verbatimTextOutput('brush'))),

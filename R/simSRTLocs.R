@@ -98,10 +98,8 @@ vote_func <- function(x){
 #' @importFrom spatstat.geom area
 #' @importFrom sp Polygon spsample
 #' @importFrom sf st_bbox st_make_grid st_intersection st_coordinates
-#' @importFrom magrittr %>%
-#' @noRd
-#' @keywords internal
-
+#' @importFrom magrittr %>% 
+#' @export 
 
 simNewLocs <- function(newN,lay_out=c("grid","random"),preLoc){
     lay_out <- match.arg(lay_out)

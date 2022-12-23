@@ -35,7 +35,6 @@ library("RefManageR")
 ## Write bibliography information
 bib <- c(
     R = citation(),
-    BiocFileCache = citation("BiocFileCache")[1],
     BiocStyle = citation("BiocStyle")[1],
     knitr = citation("knitr")[3],
     Matrix = citation("Matrix")[1],
@@ -144,7 +143,6 @@ The `r CRANpkg('SRTsim')` package was made possible thanks to:
 
 * R `r Citep(bib[['R']])`
 * `r Biocpkg('AnnotationHub')` `r Citep(bib[['AnnotationHub']])`
-* `r Biocpkg('BiocFileCache')` `r Citep(bib[['BiocFileCache']])`
 * `r Biocpkg('BiocStyle')` `r Citep(bib[['BiocStyle']])`
 * `r Biocpkg('GenomicRanges')` `r Citep(bib[['GenomicRanges']])`
 * `r CRANpkg('knitr')` `r Citep(bib[['knitr']])`
@@ -190,8 +188,10 @@ round(totalTime, digits = 3)
 ```{r reproduce3, echo=FALSE}
 ## Session info
 library("sessioninfo")
+original <- options("width")
 options(width = 120)
 session_info()
+options(original)
 ```
 
 # Bibliography

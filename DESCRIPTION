@@ -1,21 +1,21 @@
 Package: SRTsim
 Type: Package
 Title: Simulator for Spatially Resolved Transcriptomics
-Version: 0.99.2
-Date: 2022-06-13
+Version: 0.99.6
+Date: 2022-12-23
 Authors@R: c(
   person(given = "Jiaqiang", family = "Zhu", email = "jiaqiang@umich.edu", role = c("aut","ctb","cre"), comment = c(ORCID = "0000-0002-1455-0041")),
   person(given = "Lulu", family = "Shang", email = "shanglu@umich.edu", role = "aut", comment = c(ORCID = "0000-0002-2480-3065")),
   person(given = "Xiang", family = "Zhou", email = "xzhousph@umich.edu", role = "aut", comment = c(ORCID = "0000-0002-4331-7599"))
   )
 Maintainer: Jiaqiang Zhu <jiaqiang@umich.edu>
-Description: An independent, reproducible, and flexible Spatially Resolved Transcriptomics (SRT) simulation framework that can be used to facilitate the development of SRT analytical methods for a wide variety of SRT-specific analyses. It utilizes spatial localization information to simulate SRT expression count data in a reproducible and scalable fashion. Two major simulation schemes are implemented in SRTsim: reference-based and reference-free.
+Description: An independent, reproducible, and flexible Spatially Resolved Transcriptomics (SRT) simulation framework that can be used to facilitate the development of SRT analytical methods for a wide variety of SRT-specific analyses. It utilizes spatial localization information to simulate SRT expression count data in a reproducible and scalable fashion. Two major simulation schemes are implemented in 'SRTsim': reference-based and reference-free.
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.2.0
 Roxygen: list(markdown = TRUE)
-Imports: concaveman,sf,sp,spatstat.geom,parallel,pdist,MASS,S4Vectors,stats,Matrix,Morpho,matrixStats,plotly,shiny,viridis,shinydashboard,dashboardthemes,shinyBS, ggplot2, ggpubr, spatstat.random,magrittr
+Imports: concaveman,sf,sp,spatstat.geom,parallel,pdist,MASS,S4Vectors,stats,Matrix,Morpho,matrixStats,plotly,shiny,viridis,shinydashboard,dashboardthemes,shinyBS, ggplot2, ggpubr, spatstat.random,magrittr,FNN,dplyr
 Suggests: knitr,rmarkdown,BiocStyle,RefManageR,BiocManager,sessioninfo
 VignetteBuilder: knitr
 Depends: R (>= 3.5.0), methods
@@ -38,6 +38,7 @@ Collate:
     'sidebar.R'
     'simSRTLocs.R'
     'subsetSRT.R'
+    'SRTcci.R'
     'ui.R'
     'utilies_func.R'
     'visualize_gene.R'

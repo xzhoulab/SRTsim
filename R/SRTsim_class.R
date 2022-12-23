@@ -53,7 +53,26 @@ setMethod("show", "simSRT",
 
     ## colData()
     coolcat("refcolData names(%d): %s\n", names(refcolData(object)))
+
+    if(!is.null(object@simCounts)){
+        obj_simCounts <- object@simCounts
+        cat("Synthetic Count dim:", dim(obj_simCounts), "\n")
+
+        ## rownames()
+        rn2 <- rownames(obj_simCounts)
+        if (!is.null(rn2)) coolcat("Synthetic Count rownames(%d): %s\n", rn2)
+        else cat("Synthetic Count rownames: NULL\n")
+
+        ## colData()
+        coolcat("simcolData names(%d): %s\n", names(simcolData(object)))
+    }
 })
+
+
+
+
+
+
 
 
 #' Access reference count matrix

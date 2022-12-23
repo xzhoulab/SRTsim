@@ -136,6 +136,8 @@ fit_single <- function(x,
 #' @param maxiter      The number of iterations for the model-fitting. Default is 100 
 #' @return Returns a n by 3 matrix with estimated parameters for all the genes
 #' @importFrom stats pchisq
+#' @importFrom dplyr mutate case_when
+#' @importFrom magrittr %<>% 
 #' @noRd
 #' @keywords internal
 
@@ -240,7 +242,15 @@ getparams <- function(x, marginal = c('auto_choose', 'zinb', 'nb', 'poisson','zi
     }
 
 
-    colnames(params) = c("pi","theta","mu")
+    colnames(params) = c("pi0","theta","mu")
+    params <- as.data.frame(params)
+    params %<>% mutate(model_selected = case_when(
+        pi0 == 0 & theta==Inf ~ "Poisson",
+        pi0 == 0 & theta!=Inf ~ "NB",
+        pi0 != 0 & theta!=Inf ~ "ZINB",
+        pi0 != 0 & theta==Inf ~ "ZIP"
+    ))
+
     # return(list(params = params))
     return(params)
 }
