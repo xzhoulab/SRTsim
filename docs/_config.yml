@@ -3,7 +3,7 @@ title: SRTsim
 author: Jiaqiang Zhu, Lulu Shang, and Xiang Zhou
 email: jiaqiang@umich.edu shanglu@umich.edu xzhousph@umich.edu
 description: An interactive simulator for spatially resolved transcriptomics
-
+license: GPL (>= 3)
 # Minima date format
 # refer to http://shopify.github.io/liquid/filters/date/ if you want to customize this
 minima:
