@@ -36,7 +36,17 @@ library("RefManageR")
 bib <- c(
     R = citation(),
     BiocStyle = citation("BiocStyle")[1],
-    knitr = citation("knitr")[3],
+    knitr =bibentry(
+     bibtype = "InCollection",
+     booktitle = "Implementing Reproducible Computational Research",
+     title = "knitr: A Comprehensive Tool for Reproducible Research in R",
+     author = as.person("Yihui Xie [aut]"),
+     editor = as.person("Victoria Stodden, Friedrich Leisch, Roger D. Peng"),
+     year = "2014",
+     publisher = "Chapman and Hall/CRC",
+     isbn = "978-1466561595",
+     url = "https://www.routledge.com/Implementing-Reproducible-Research/Stodden-Leisch-Peng/p/book/9781466561595"
+   ),
     Matrix = citation("Matrix")[1],
     RefManageR = citation("RefManageR")[1],
     rmarkdown = citation("rmarkdown")[1],
@@ -48,7 +58,7 @@ bib <- c(
 
 Welcome to the `SRTsim` project! It is composed of:
 
-* a [shiny](https://shiny.rstudio.com/) web application that we are hosting at [https://jiaqiangzhu.shinyapps.io/srtsim](https://jiaqiangzhu.shinyapps.io/srtsim) that can handle a limited set of concurrent users,
+* a [shiny](https://shiny.posit.co/) web application that we are hosting at [https://jiaqiangzhu.shinyapps.io/srtsim](https://jiaqiangzhu.shinyapps.io/srtsim) that can handle a limited set of concurrent users,
 * a R package at CRAN that lets you generate the spatially resolved transcriptomic (SRT) data and run a local version of our web application.
 
 The web application allows you to design spatial pattern and generate SRT data with patterns of interest.
@@ -142,14 +152,11 @@ This work was done by Jiaqiang Zhu, Lulu Shang and Xiang Zhou.
 The `r CRANpkg('SRTsim')` package was made possible thanks to:
 
 * R `r Citep(bib[['R']])`
-* `r Biocpkg('AnnotationHub')` `r Citep(bib[['AnnotationHub']])`
 * `r Biocpkg('BiocStyle')` `r Citep(bib[['BiocStyle']])`
-* `r Biocpkg('GenomicRanges')` `r Citep(bib[['GenomicRanges']])`
 * `r CRANpkg('knitr')` `r Citep(bib[['knitr']])`
 * `r CRANpkg('Matrix')` `r Citep(bib[['Matrix']])`
 * `r CRANpkg("RefManageR")` `r Citep(bib[["RefManageR"]])`
 * `r CRANpkg('rmarkdown')` `r Citep(bib[['rmarkdown']])`
-* `r Biocpkg('rtracklayer')` `r Citep(bib[['rtracklayer']])`
 * `r Biocpkg('S4Vectors')` `r Citep(bib[['S4Vectors']])`
 * `r CRANpkg('sessioninfo')` `r Citep(bib[['sessioninfo']])`
 

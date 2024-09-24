@@ -2,7 +2,7 @@
 #' @import shinydashboard
 #' @importFrom plotly plotlyOutput
 #' @importFrom shinyBS bsModal
-#' @importFrom dashboardthemes shinyDashboardThemeDIY
+#' @importFrom DT DTOutput
 body <- shinydashboard::dashboardBody(
     tags$head(
         tags$style(
@@ -33,121 +33,121 @@ body <- shinydashboard::dashboardBody(
         )
     ), ## end of the tags$head
 
-dashboardthemes::shinyDashboardThemeDIY(
-  ### general
-  appFontFamily = "Garamond"
-  ,appFontColor = "rgb(45,45,45)"
-  # ,primaryFontColor = "rgb(15,15,15)"
-    ,primaryFontColor = "rgb(255,255,255)"
-  ,infoFontColor = "rgb(15,15,15)"
-  # ,successFontColor = "rgb(15,15,15)"
-   ,successFontColor = "rgb(255,255,255)"
-  ,warningFontColor = "rgb(255,255,255)"
-  # ,warningFontColor = "rgb(45,45,45)"
-  ,dangerFontColor = "rgb(15,15,15)"
-  ,bodyBackColor = "rgb(255,255,255)" ## background of the output
+# dashboardthemes::shinyDashboardThemeDIY(
+#   ### general
+#   appFontFamily = "Garamond"
+#   ,appFontColor = "rgb(45,45,45)"
+#   # ,primaryFontColor = "rgb(15,15,15)"
+#     ,primaryFontColor = "rgb(255,255,255)"
+#   ,infoFontColor = "rgb(15,15,15)"
+#   # ,successFontColor = "rgb(15,15,15)"
+#    ,successFontColor = "rgb(255,255,255)"
+#   ,warningFontColor = "rgb(255,255,255)"
+#   # ,warningFontColor = "rgb(45,45,45)"
+#   ,dangerFontColor = "rgb(15,15,15)"
+#   ,bodyBackColor = "rgb(255,255,255)" ## background of the output
 
-  ### header
+#   ### header
 
-  # ,logoBackColor = "#ff6633"
-  # ,headerButtonBackColor = "#ff6633"
-  # ,headerButtonBackColorHover = "#ff6633"
-  # ,headerButtonIconColorHover = "#ff6633"
-  # ,headerBackColor = "#ff6633"
-  # ,headerBoxShadowColor = "#ff6633"
+#   # ,logoBackColor = "#ff6633"
+#   # ,headerButtonBackColor = "#ff6633"
+#   # ,headerButtonBackColorHover = "#ff6633"
+#   # ,headerButtonIconColorHover = "#ff6633"
+#   # ,headerBackColor = "#ff6633"
+#   # ,headerBoxShadowColor = "#ff6633"
 
-  ,logoBackColor = "rgb(76,76,255)"
-  ,headerButtonBackColor = "rgb(76,76,255)"
-  ,headerButtonBackColorHover = "rgb(76,76,255)"
-  ,headerButtonIconColorHover = "rgb(76,76,255)"
-  ,headerBackColor ="rgb(76,76,255)"
-  ,headerBoxShadowColor = "rgb(76,76,255)"
-  ,headerButtonIconColor = "rgb(220,220,220)"
-  ,headerBoxShadowSize = "0px 0px 0px"
+#   ,logoBackColor = "rgb(76,76,255)"
+#   ,headerButtonBackColor = "rgb(76,76,255)"
+#   ,headerButtonBackColorHover = "rgb(76,76,255)"
+#   ,headerButtonIconColorHover = "rgb(76,76,255)"
+#   ,headerBackColor ="rgb(76,76,255)"
+#   ,headerBoxShadowColor = "rgb(76,76,255)"
+#   ,headerButtonIconColor = "rgb(220,220,220)"
+#   ,headerBoxShadowSize = "0px 0px 0px"
 
-  ### sidebar
-  ,sidebarBackColor = "rgb(240,240,240)"
-  # ,sidebarBackColor = "rgb(255,240,240)"
-  ,sidebarPadding = 10
+#   ### sidebar
+#   ,sidebarBackColor = "rgb(240,240,240)"
+#   # ,sidebarBackColor = "rgb(255,240,240)"
+#   ,sidebarPadding = 10
 
-  ,sidebarMenuBackColor = "transparent"
-  ,sidebarMenuPadding = 0
-  ,sidebarMenuBorderRadius = 0
+#   ,sidebarMenuBackColor = "transparent"
+#   ,sidebarMenuPadding = 0
+#   ,sidebarMenuBorderRadius = 0
 
-  ,sidebarShadowRadius = "0px 0px 0px"
-  ,sidebarShadowColor = "#dfdfdf"
-  ,sidebarUserTextColor = "rgb(115,115,115)"
-  ,sidebarSearchBackColor = "rgb(240,240,240)"
-  ,sidebarSearchIconColor = "rgb(100,100,100)"
-  ,sidebarSearchBorderColor = "rgb(220,220,220)"
+#   ,sidebarShadowRadius = "0px 0px 0px"
+#   ,sidebarShadowColor = "#dfdfdf"
+#   ,sidebarUserTextColor = "rgb(115,115,115)"
+#   ,sidebarSearchBackColor = "rgb(240,240,240)"
+#   ,sidebarSearchIconColor = "rgb(100,100,100)"
+#   ,sidebarSearchBorderColor = "rgb(220,220,220)"
 
-  ,sidebarTabTextColor = "rgb(100,100,100)"
-  ,sidebarTabTextSize = 14
-  ,sidebarTabBorderStyle = "none"
-  ,sidebarTabBorderColor = "none"
-  ,sidebarTabBorderWidth = 0
+#   ,sidebarTabTextColor = "rgb(100,100,100)"
+#   ,sidebarTabTextSize = 14
+#   ,sidebarTabBorderStyle = "none"
+#   ,sidebarTabBorderColor = "none"
+#   ,sidebarTabBorderWidth = 0
 
-  ,sidebarTabBackColorSelected = "rgb(230,230,230)"
-  ,sidebarTabTextColorSelected = "rgb(0,0,0)"
-  ,sidebarTabRadiusSelected = "0px"
+#   ,sidebarTabBackColorSelected = "rgb(230,230,230)"
+#   ,sidebarTabTextColorSelected = "rgb(0,0,0)"
+#   ,sidebarTabRadiusSelected = "0px"
 
-  ,sidebarTabBackColorHover = "rgb(245,245,245)"
-  ,sidebarTabTextColorHover = "rgb(0,0,0)"
-  ,sidebarTabBorderStyleHover = "none solid none none"
-  ,sidebarTabBorderColorHover = "rgb(200,200,200)"
-  ,sidebarTabBorderWidthHover = 4
-  ,sidebarTabRadiusHover = "0px"
+#   ,sidebarTabBackColorHover = "rgb(245,245,245)"
+#   ,sidebarTabTextColorHover = "rgb(0,0,0)"
+#   ,sidebarTabBorderStyleHover = "none solid none none"
+#   ,sidebarTabBorderColorHover = "rgb(200,200,200)"
+#   ,sidebarTabBorderWidthHover = 4
+#   ,sidebarTabRadiusHover = "0px"
 
 
-  # ,boxBackColor = "rgb(248,248,248)"
-  ,boxBackColor = "rgb(255,255,255)"
-  ,boxBorderRadius = 5
-  ,boxShadowSize = "none"
-  ,boxShadowColor = ""
-  ,boxTitleSize = 18
-  ,boxDefaultColor = "rgb(225,225,225)"
-  # ,boxPrimaryColor = "rgb(95,155,213)"
-  ,boxPrimaryColor = "#006c69"
-  ,boxInfoColor = "rgb(180,180,180)"
-    ,boxSuccessColor = "#194d7f"
-  # ,boxSuccessColor = "#339bff"
-  # ,boxSuccessColor = "rgb(102,102,185)"
-  # ,boxSuccessColor = "rgb(112,173,71)"
-  # ,boxWarningColor = "rgb(237,125,49)"
-  ,boxWarningColor = "rgb(0,39,76)"
-  ,boxDangerColor = "rgb(232,76,34)"
+#   # ,boxBackColor = "rgb(248,248,248)"
+#   ,boxBackColor = "rgb(255,255,255)"
+#   ,boxBorderRadius = 5
+#   ,boxShadowSize = "none"
+#   ,boxShadowColor = ""
+#   ,boxTitleSize = 18
+#   ,boxDefaultColor = "rgb(225,225,225)"
+#   # ,boxPrimaryColor = "rgb(95,155,213)"
+#   ,boxPrimaryColor = "#006c69"
+#   ,boxInfoColor = "rgb(180,180,180)"
+#     ,boxSuccessColor = "#194d7f"
+#   # ,boxSuccessColor = "#339bff"
+#   # ,boxSuccessColor = "rgb(102,102,185)"
+#   # ,boxSuccessColor = "rgb(112,173,71)"
+#   # ,boxWarningColor = "rgb(237,125,49)"
+#   ,boxWarningColor = "rgb(0,39,76)"
+#   ,boxDangerColor = "rgb(232,76,34)"
 
-  ,tabBoxTabColor = "rgb(248,248,248)"
-  ,tabBoxTabTextSize = 14
-  ,tabBoxTabTextColor = "rgb(100,100,100)"
-  ,tabBoxTabTextColorSelected = "rgb(45,45,45)"
-  ,tabBoxBackColor = "rgb(248,248,248)"
-  ,tabBoxHighlightColor = "rgb(200,200,200)"
-  ,tabBoxBorderRadius = 1
+#   ,tabBoxTabColor = "rgb(248,248,248)"
+#   ,tabBoxTabTextSize = 14
+#   ,tabBoxTabTextColor = "rgb(100,100,100)"
+#   ,tabBoxTabTextColorSelected = "rgb(45,45,45)"
+#   ,tabBoxBackColor = "rgb(248,248,248)"
+#   ,tabBoxHighlightColor = "rgb(200,200,200)"
+#   ,tabBoxBorderRadius = 1
 
-  ### inputs
-  ,buttonBackColor = "rgb(215,215,215)"
-  ,buttonTextColor = "rgb(45,45,45)"
-  ,buttonBorderColor = "rgb(150,150,150)"
-  ,buttonBorderRadius = 5
+#   ### inputs
+#   ,buttonBackColor = "rgb(215,215,215)"
+#   ,buttonTextColor = "rgb(45,45,45)"
+#   ,buttonBorderColor = "rgb(150,150,150)"
+#   ,buttonBorderRadius = 5
 
-  ,buttonBackColorHover = "rgb(190,190,190)"
-  ,buttonTextColorHover = "rgb(0,0,0)"
-  ,buttonBorderColorHover = "rgb(150,150,150)"
+#   ,buttonBackColorHover = "rgb(190,190,190)"
+#   ,buttonTextColorHover = "rgb(0,0,0)"
+#   ,buttonBorderColorHover = "rgb(150,150,150)"
 
-  ,textboxBackColor = "rgb(255,255,255)"
-  ,textboxBorderColor = "rgb(118,118,118)"
-  ,textboxBorderRadius = 5
-  ,textboxBackColorSelect = "rgb(245,245,245)"
-  ,textboxBorderColorSelect = "rgb(108,108,108)"
+#   ,textboxBackColor = "rgb(255,255,255)"
+#   ,textboxBorderColor = "rgb(118,118,118)"
+#   ,textboxBorderRadius = 5
+#   ,textboxBackColorSelect = "rgb(245,245,245)"
+#   ,textboxBorderColorSelect = "rgb(108,108,108)"
 
-  ### tables
-  # ,tableBackColor = "rgb(248,248,248)"
-  ,tableBackColor = "rgb(255,255,255)"
-  ,tableBorderColor = "rgb(238,238,238)"
-  ,tableBorderTopSize = 1
-  ,tableBorderRowSize = 1
-),
+#   ### tables
+#   # ,tableBackColor = "rgb(248,248,248)"
+#   ,tableBackColor = "rgb(255,255,255)"
+#   ,tableBorderColor = "rgb(238,238,238)"
+#   ,tableBorderTopSize = 1
+#   ,tableBorderRowSize = 1
+# ),
 
 
 
@@ -224,7 +224,8 @@ dashboardthemes::shinyDashboardThemeDIY(
             ), # end of the fluidRow 
 
             bsModal("modalExample", "Location Data Table", "loc_pop", size = "large",
-                dataTableOutput("distTable")
+                 DT::DTOutput("countTable")
+                    # dataTableOutput("countTable")
                 # downloadButton("downloadPopLoc", "Download Location File")
             ),
             ## for now, nothing would come 
@@ -306,7 +307,8 @@ dashboardthemes::shinyDashboardThemeDIY(
 
                 bsModal("modalCount", "Count Data Table", "count_pop", 
                     size = "large",
-                    dataTableOutput("countTable")
+                    DT::DTOutput("countTable")
+                    # dataTableOutput("countTable")
                     # downloadButton("downloadPopCount", "Download CountData File")
                 )
             )

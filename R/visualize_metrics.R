@@ -5,6 +5,7 @@
 #' @param axistextsize Specification of axis font size. Default is 12. 
 #' @return Returns a list of ggplots
 #' @importFrom ggpubr ggarrange
+#' @import magick
 #' @export
 #' @examples
 #' 

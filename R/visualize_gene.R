@@ -10,6 +10,7 @@
 #' @importFrom ggpubr ggarrange
 #' @importFrom viridis scale_color_viridis
 #' @import ggplot2
+#' @import magick
 #' @export
 #' @examples
 #' 
