@@ -10,7 +10,7 @@ install.packages('devtools')
 ```
 
 #### 2. Install `SRTsim`
-XQuartz is necessary for OpenGL support on macOS. To install it, visit the (XQuartz website)[https://www.xquartz.org] and follow the installation instructions.
+XQuartz is necessary for OpenGL support on macOS. To install it, visit the [XQuartz website](https://www.xquartz.org) and follow the installation instructions.
 ```r
 devtools::install_github('xzhoulab/SRTsim')
 ```
